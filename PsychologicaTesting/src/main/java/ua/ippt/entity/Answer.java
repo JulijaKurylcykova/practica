@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Table(name = "answers")
 @Entity
@@ -19,4 +20,11 @@ public class Answer {
 
     @Column
     private String description;
+
+    @Column
+    private boolean rightAnswer;
+
+    @ManyToOne
+    @JoinColumn(name = "question_id", referencedColumnName = "question_id")
+    private Question question;
 }

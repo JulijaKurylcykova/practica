@@ -21,6 +21,14 @@ public class PsychologicalTest {
     @Column
     private String name;
 
-    @OneToMany
-    private List<Question> question;
+    @Column
+    private String description;
+
+    @OneToMany(mappedBy = "psychologicalTest" )
+    private List<Question> questions;
+
+    @OneToOne
+    @JoinColumn(name = "result_id", referencedColumnName = "result_id")
+    private Result result;
+
 }

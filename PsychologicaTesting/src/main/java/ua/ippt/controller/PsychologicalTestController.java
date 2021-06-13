@@ -1,10 +1,11 @@
 package ua.ippt.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ua.ippt.dto.PsychologicalTestDto;
+import ua.ippt.dto.ResultDto;
+import ua.ippt.dto.TestQuestionDto;
+import ua.ippt.dto.UserAnswersDtoList;
 import ua.ippt.service.PsychologicalTestService;
 
 import java.util.List;
@@ -13,12 +14,21 @@ import java.util.List;
 @RequestMapping("/tests")
 @AllArgsConstructor
 public class PsychologicalTestController {
-
     private final PsychologicalTestService psychologicalTestService;
 
     @GetMapping
-    public List<PsychologicalTestDto> getAllTests(){
-
+    public List<PsychologicalTestDto> getAllTests() {
         return psychologicalTestService.getAllTests();
+    }
+
+    @GetMapping("/{id}")
+    public TestQuestionDto getTestById(@PathVariable int id) {
+        return psychologicalTestService.getTestById(id);
+    }
+
+    @PostMapping("/{id}")
+    public ResultDto checkUserAnswers(@PathVariable("id") final int testId,
+                                      @RequestBody UserAnswersDtoList userAnswersDtoList) {
+        return psychologicalTestService.checkResults(testId, userAnswersDtoList);
     }
 }

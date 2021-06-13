@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "questions")
@@ -23,9 +24,8 @@ public class Question {
     @Column
     private String description;
 
-    @OneToOne
-    @JoinColumn(name = "answer_id", referencedColumnName = "answer_id")
-    private Answer answer;
+    @OneToMany(mappedBy = "question")
+    private List<Answer> answers;
 
     @ManyToOne
     @JoinColumn(name="test_id", referencedColumnName = "test_id")
