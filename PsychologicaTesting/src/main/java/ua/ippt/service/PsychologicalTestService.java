@@ -6,12 +6,14 @@ import ua.ippt.dto.PsychologicalTestDto;
 import ua.ippt.dto.ResultDto;
 import ua.ippt.dto.TestQuestionDto;
 import ua.ippt.dto.UserAnswersDtoList;
+import ua.ippt.entity.Question;
 import ua.ippt.entity.Result;
 import ua.ippt.enumeration.PsychoResult;
 import ua.ippt.repository.PsychologicalTestRepository;
 import ua.ippt.repository.QuestionRepository;
 import ua.ippt.util.Converter;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,7 +21,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class PsychologicalTestService {
 
-    private static final String RESULT_MESSAGE = "Ваш результат %s відсотків";
+    private static final String RESULT_MESSAGE = "Your result %s percent";
 
     private final PsychologicalTestRepository psychologicalTestRepository;
     private final QuestionRepository questionRepository;
@@ -32,7 +34,8 @@ public class PsychologicalTestService {
 
     public TestQuestionDto getTestById(int id) {
         var test = psychologicalTestRepository.getById(id);
-        var allQuestions = questionRepository.getByPsychologicalTest(test);
+        var allQuestions = questionRepository.getByPsychologicalTest(test)
+                .stream().sorted(Comparator.comparingInt(Question::getSequence)).collect(Collectors.toList());
         return Converter.convertTestQuestionDto(allQuestions, test);
     }
 
