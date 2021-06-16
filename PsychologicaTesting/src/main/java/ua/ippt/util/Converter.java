@@ -15,6 +15,7 @@ public class Converter {
     public static TestQuestionDto convertTestQuestionDto(List<Question> questions, PsychologicalTest test) {
         return TestQuestionDto.builder().name(test.getName())
                 .description(test.getDescription())
+                .imageUrl(test.getImageUrl())
                 .questions(convertToQuestionDtoList(questions)).build();
     }
 

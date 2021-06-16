@@ -58,6 +58,7 @@ public class PsychologicalTestService {
     private boolean isRightAnswer(int questionId, int answerId) {
         var question = questionRepository.getById(questionId);
         return question.getAnswers().stream()
+                .filter(answer -> answer.isRightAnswer())
                 .anyMatch(answer -> answer.getAnswerId() == answerId);
     }
 

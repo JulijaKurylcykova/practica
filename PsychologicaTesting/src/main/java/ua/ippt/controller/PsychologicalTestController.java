@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/tests")
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 public class PsychologicalTestController {
     private final PsychologicalTestService psychologicalTestService;
 

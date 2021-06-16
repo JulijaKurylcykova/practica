@@ -24,7 +24,10 @@ public class PsychologicalTest {
     @Column
     private String description;
 
-    @OneToMany(mappedBy = "psychologicalTest" )
+    @Column(name = "image_url")
+    private String imageUrl;
+
+    @OneToMany(mappedBy = "psychologicalTest")
     private List<Question> questions;
 
     @OneToOne
